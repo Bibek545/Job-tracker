@@ -1,19 +1,55 @@
 import React from "react";
-import { Col, Container, Image, Row, Stack } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Image,
+  Nav,
+  NavLink,
+  Row,
+  Stack,
+} from "react-bootstrap";
+import logo from "../../assests/image/job-tracker-logo.jpg";
 
 const Footer = () => {
   return (
     <footer>
-      <Container fluid>
-        <Row className="bg-primary text-white text-center">
-          <Col>
-          <Stack>
-            <Image
-             />
-          </Stack>
+      <Container fluid className="bg-primary text-white py-4">
+        <Row className="align-items-start text-start px-4">
+          {/* left */}
+          <Col md={4}>
+            <Stack>
+              <Image
+                src={logo}
+                alt="company logo"
+                rounded
+                width={150}
+                height={150}
+              />
+            </Stack>
+            <h4 className="mt-2">Job-Tracker</h4>
+            <p className="mb-0">Company Tagline Here</p>
           </Col>
-          <Col>Column 2</Col>
-          <Col>Column 3</Col>
+          {/* middle */}
+          <Col md={4}>
+            <h5 className="mb-3">Useful Links</h5>
+            <Nav className="flex-column">
+              <NavLink href="#" className="text-white p-0 mb-2">
+                Home
+              </NavLink>
+              <NavLink href="#" className="text-white p-0 mb-2">
+                Features
+              </NavLink>
+              <NavLink href="#" className="text-white p-0">
+                About
+              </NavLink>
+            </Nav>
+          </Col>
+          {/* Right */}
+          <Col md={4}>
+            <h5 className="mb-3">Contact us!</h5>
+            <p className="mb-1">email@jobtracker.com</p>
+            <p>0123456789</p>
+          </Col>
         </Row>
       </Container>
     </footer>
