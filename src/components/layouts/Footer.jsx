@@ -4,11 +4,11 @@ import {
   Container,
   Image,
   Nav,
-  NavLink,
   Row,
   Stack,
 } from "react-bootstrap";
 import logo from "../../assests/image/job-tracker-logo.jpg";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -33,15 +33,15 @@ const Footer = () => {
           <Col md={4}>
             <h5 className="mb-3">Useful Links</h5>
             <Nav className="flex-column">
-              <NavLink href="#" className="text-white p-0 mb-2">
+              <Link to="/home" className=" nav-link text-white p-0 mb-2">
                 Home
-              </NavLink>
-              <NavLink href="#" className="text-white p-0 mb-2">
+              </Link>
+              <Link to="/features" className=" nav-link text-white p-0 mb-2">
                 Features
-              </NavLink>
-              <NavLink href="#" className="text-white p-0">
+              </Link>
+              <Link to="/about" className=" nav-link text-white p-0">
                 About
-              </NavLink>
+              </Link>
             </Nav>
           </Col>
           {/* Right */}

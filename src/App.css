@@ -1,0 +1,9 @@
+/* header hero section */
+.hero-card-button {
+    width: 130px
+}
+
+.hero-img {
+ max-width: 350px;
+ max-height: auto;
+}
