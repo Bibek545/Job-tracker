@@ -45,9 +45,47 @@ const HomePage = () => {
           </Col>
         </Row>
       </Container>
-      <Container>
+      <Container className="bg-light bg-gradient py-3 rounded">
         {/* feature card section */}
-
+        <Row>
+          <Col>
+            <div className="feature-card d-flex justify-content-center">
+              <p>img bargraph</p>
+              <div>
+                <h4 className="fw-bold">Track your Progress</h4>
+                <p>View detailed stats on your job applications.</p>
+              </div>
+            </div>
+          </Col>
+          <Col>
+            <div className="feature-card d-flex justify-content-center">
+              <p>img chart</p>
+              <div className="">
+                <h4 className="fw-bold">Organise Applications</h4>
+                <p>Easily add and update your applications.</p>
+              </div>
+            </div>
+          </Col>
+          <Col>
+            <div className="feature-card d-flex justify-content-center">
+              <p>img bell</p>
+              <div>
+                <h4 className="fw-bold">Get Notified</h4>
+                <p>Receive reminders for upcoming interviews.</p>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+      <Container className="bg-light bg-gradient py-3 rounded">
+        <Row>
+          <Col>
+            <div className="feaure-button d-flex justify-content-center">
+              <Button className="m-2"><a className="text-decoration-none text-white" href="/register"> Regiter Now</a></Button>
+              <Button className="m-2"><a className="text-decoration-none text-white" href="/login ">Login</a></Button>
+            </div>
+          </Col>
+        </Row>
       </Container>
     </>
   );

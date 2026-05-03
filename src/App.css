@@ -4,6 +4,21 @@
 }
 
 .hero-img {
- max-width: 350px;
- max-height: auto;
+    max-width: 350px;
+    max-height: auto;
 }
+
+.feature-card {
+    max-height: auto;
+    max-width: 350px;
+    border: 1px solid white;
+    border-radius: 3px;
+    /* padding: 5px; */
+    padding:10px 0px 0px 30px;
+    /* margin: 3px; */
+    background-color: white;
+    box-shadow: 5px 10px white;
+
+}
+
+.feaure-button{
