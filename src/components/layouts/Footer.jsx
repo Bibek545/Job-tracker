@@ -22,8 +22,8 @@ const Footer = () => {
                 src={logo}
                 alt="company logo"
                 rounded
-                width={150}
-                height={150}
+                width={100}
+                height={100}
               />
             </Stack>
             <h4 className="mt-2">Job-Tracker</h4>
