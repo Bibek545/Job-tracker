@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import ichigo from "../../assests/image/ichigo.jpg";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -23,15 +24,15 @@ const HomePage = () => {
               Learn More
             </Button>
             <p className="pt-2">
-              <a className="text-decoration-none" href="/login ">
+              <Link className="text-decoration-none" to="/login ">
                 {" "}
                 Login{" "}
-              </a>{" "}
+              </Link>{" "}
               or{" "}
-              <a className="text-decoration-none" href="/register">
+              <Link className="text-decoration-none" to="/register">
                 {" "}
                 Register
-              </a>{" "}
+              </Link>{" "}
               to save your progress
             </p>
           </Col>
@@ -78,11 +79,11 @@ const HomePage = () => {
         </Row>
       </Container>
       <Container className="bg-light bg-gradient py-3 rounded">
-        <Row>
+        <Row className="g-4">
           <Col>
             <div className="feaure-button d-flex justify-content-center">
-              <Button className="m-2"><a className="text-decoration-none text-white" href="/register"> Regiter Now</a></Button>
-              <Button className="m-2"><a className="text-decoration-none text-white" href="/login ">Login</a></Button>
+              <Button className="m-2"><Link className="text-decoration-none text-white" to="/register"> Regiter Now</Link></Button>
+              <Button className="m-2"><Link className="text-decoration-none text-white" to="/login ">Login</Link></Button>
             </div>
           </Col>
         </Row>

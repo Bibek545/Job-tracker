@@ -14,7 +14,7 @@
     border: 1px solid white;
     border-radius: 3px;
     /* padding: 5px; */
-    padding:10px 0px 0px 30px;
+    padding: 10px 0px 0px 30px;
     /* margin: 3px; */
     background-color: white;
     box-shadow: 5px 10px white;
@@ -34,7 +34,7 @@
 }
 
 .login-card {
-        background: white;
+    background: white;
     padding: 2rem;
     border-radius: 12px;
     border: 1px solid #ddd;
@@ -43,4 +43,31 @@
 
 .login-card h2 {
     font-weight: 700;
+}
+
+.feature-card-feature {
+    width: 100%;
+    padding: 25px;
+    /* margin: 5px; */
+    border-radius: 15px;
+    border: 1px solid #efe7e7;
+    box-shadow: 0 8px 24px rgba(249, 243, 243, 0.8);
+}
+
+.about-card {
+    width: 100%;
+    padding: 25px;
+    /* margin: 5px; */
+    border-radius: 15px;
+    border: 1px solid #efe7e7;
+    box-shadow: 0 8px 24px rgba(249, 243, 243, 0.8);
+}
+
+.about-card-inside {
+    width: 50%;
+    padding: 25px;
+    /* margin: 5px; */
+    border-radius: 15px;
+    border: 1px solid #efe7e7;
+    box-shadow: 0 8px 24px rgba(249, 243, 243, 0.8);
 }

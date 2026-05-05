@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   return (
@@ -24,10 +25,17 @@ const LoginPage = () => {
                     placeholder="Enter password"
                   ></Form.Control>
                 </Form.Group>
-                <Button className="w-100" variant="primary">Login</Button>
-                <div>
-          <p>New user <a href="/register">Register</a> here.</p>
-
+                <Button className="w-100" variant="primary">
+                  Login
+                </Button>
+                <div className="text-center m-3">
+                  <p>
+                    New user{" "}
+                    <Link to="/register" className="text-decoration-none">
+                      Register
+                    </Link>{" "}
+                    here.
+                  </p>
                 </div>
               </Form>
             </div>

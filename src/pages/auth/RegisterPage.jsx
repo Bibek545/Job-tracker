@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
   return (
@@ -55,6 +56,15 @@ const RegisterPage = () => {
                 <Button className="w-100" variant="primary" type="Submit">
                   Register
                 </Button>
+                <div className="text-center m-3">
+                  <p>
+                    New user If you already have an account please{" "}
+                    <Link to="/login" className="text-decoration-none">
+                      Login
+                    </Link>{" "}
+                    here.
+                  </p>
+                </div>
               </Form>
             </div>
           </Col>
