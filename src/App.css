@@ -71,3 +71,14 @@
     border: 1px solid #efe7e7;
     box-shadow: 0 8px 24px rgba(249, 243, 243, 0.8);
 }
+
+.sidebar {
+    background-color: rgb(47, 59, 107);
+}
+
+/* .vstack {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-self: stretch;
+} */

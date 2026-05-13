@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { registerUserApi } from "../../helpers/authApi";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    fname: "",
-    lname: "",
+    fName: "",
+    lName: "",
     email: "",
     phone: "",
     password: "",
@@ -23,9 +26,29 @@ const RegisterPage = () => {
     });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
+
+    for (let key in formData) {
+      const value = formData[key].trim();
+
+      if (!value) {
+        alert(`${key} is required`);
+        return;
+      }
+    }
+
+    const { confirmPassword, ...rest } = formData;
+    if (confirmPassword !== rest.password)
+      return alert("Password does not match");
+    const result = await registerUserApi(rest);
+    console.log(result);
+
+    if (result.status === "success") {
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+    }
   };
 
   return (
@@ -40,8 +63,8 @@ const RegisterPage = () => {
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
                     type="text"
-                    name="fname"
-                    value={formData.fname}
+                    name="fName"
+                    value={formData.fName}
                     placeholder="Enter first name"
                     onChange={handleOnChange}
                   ></Form.Control>
@@ -50,8 +73,8 @@ const RegisterPage = () => {
                   <Form.Label>Last Name</Form.Label>
                   <Form.Control
                     type="text"
-                    name="lname"
-                    value={formData.lname}
+                    name="lName"
+                    value={formData.lName}
                     placeholder="Enter last name"
                     onChange={handleOnChange}
                   ></Form.Control>
@@ -69,9 +92,9 @@ const RegisterPage = () => {
                 <Form.Group className="mb-3">
                   <Form.Label>Phone</Form.Label>
                   <Form.Control
-                    type="tel"
-                    name="tel"
-                    value={formData.tel}
+                    type="phone"
+                    name="phone"
+                    value={formData.phone}
                     placeholder="Enter phone number"
                     onChange={handleOnChange}
                   ></Form.Control>

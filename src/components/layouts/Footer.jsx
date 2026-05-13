@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Col,
-  Container,
-  Image,
-  Nav,
-  Row,
-  Stack,
-} from "react-bootstrap";
+import { Col, Container, Image, Nav, Row, Stack } from "react-bootstrap";
 import logo from "../../assests/image/job-tracker-logo.jpg";
 import { Link } from "react-router-dom";
 
@@ -16,7 +9,7 @@ const Footer = () => {
       <Container fluid className="bg-primary text-white py-4">
         <Row className="align-items-start text-start px-4">
           {/* left */}
-          <Col md={4}>
+          <Col md={4} className="">
             <Stack>
               <Image
                 src={logo}
@@ -26,8 +19,10 @@ const Footer = () => {
                 height={100}
               />
             </Stack>
-            <h4 className="mt-2">Job-Tracker</h4>
-            <p className="mb-0">Company Tagline Here</p>
+            <div>
+              <h4 className="mt-2">Job-Tracker</h4>
+              <p className="mb-0">Company Tagline Here</p>
+            </div>
           </Col>
           {/* middle */}
           <Col md={4}>

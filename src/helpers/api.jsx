@@ -1,12 +1,21 @@
 import axios from "axios";
 
 // const BASE_URL = import.meta.env.VITE_API_URL;
+const getAccessJWT = () => {
+  return localStorage.getItem("accessJWT")
+}
 
-export const apiProcessor = async ({ method, url, payload, headers }) => {
+export const apiProcessor = async ({ method, url, payload, isPrivate }) => {
   try {
-    // const headers = {};
-    console.log("API CALLED:", method, url);
-    console.log("PAYLOAD:", payload);
+    const headers = {}; 
+    if(isPrivate) {
+      const token = getAccessJWT();
+      headers.authorization = "bearer " + token;
+      if(!token) {
+        return alert("please login again")
+      }
+    }
+
     const responsePending = axios({
       method,
       url,
