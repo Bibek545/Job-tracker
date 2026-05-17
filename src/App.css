@@ -1,3 +1,6 @@
+* {
+    /* background-color:#EEEFF8 ; */
+}
 /* header hero section */
 .hero-card-button {
     width: 130px
@@ -16,7 +19,7 @@
     /* padding: 5px; */
     padding: 10px 0px 0px 30px;
     /* margin: 3px; */
-    background-color: white;
+    /* background-color: white; */
     box-shadow: 5px 10px white;
 
 }
@@ -76,9 +79,24 @@
     background-color: rgb(47, 59, 107);
 }
 
-/* .vstack {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  align-self: stretch;
-} */
+/* dashboard page */
+
+.dashbaord-container{
+        height: auto;
+    width: 300px;
+     background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 8px 24px rgba(217, 215, 215, 0.8);
+}
+.job-card {
+    height: auto;
+    width: 200px;
+     background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 8px 24px rgba(217, 215, 215, 0.8);
+}
+/* dashboard page */
