@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import ichigo from "../../assests/image/ichigo.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const isLoggedIn = localStorage.getItem("jwtToken");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/user/dashboard");
+    }
+  }, [isLoggedIn, navigate]);
+
   return (
     <>
       <Container className="bg-light bg-gradient py-3 rounded">
@@ -17,22 +26,24 @@ const HomePage = () => {
               Manage and monitor your job applications in one place. Stay
               organised and increase your chances of landing your dream job
             </p>
-            <Button className="hero-card-button m-2 bg-info">
-              Get Started
-            </Button>
+            <Link to={isLoggedIn ? "/user/dashboard" : "/register"}>
+              <Button className="hero-card-button m-2 bg-info">
+                Get Started
+              </Button>
+            </Link>
+
             <Button className=" hero-card-button m-2 bg-light text-dark">
               Learn More
             </Button>
+
             <p className="pt-2">
-              <Link className="text-decoration-none" to="/login ">
-                {" "}
-                Login{" "}
-              </Link>{" "}
-              or{" "}
+              <Link className="text-decoration-none" to="/login">
+                Login
+              </Link>
+              or
               <Link className="text-decoration-none" to="/register">
-                {" "}
                 Register
-              </Link>{" "}
+              </Link>
               to save your progress
             </p>
           </Col>
@@ -82,8 +93,19 @@ const HomePage = () => {
         <Row className="g-4">
           <Col>
             <div className="feaure-button d-flex justify-content-center">
-              <Button className="m-2"><Link className="text-decoration-none text-white" to="/register"> Regiter Now</Link></Button>
-              <Button className="m-2"><Link className="text-decoration-none text-white" to="/login ">Login</Link></Button>
+              <Button className="m-2">
+                <Link
+                  className="text-decoration-none text-white"
+                  to="/register"
+                >
+                  Regiter Now
+                </Link>
+              </Button>
+              <Button className="m-2">
+                <Link className="text-decoration-none text-white" to="/login">
+                  Login
+                </Link>
+              </Button>
             </div>
           </Col>
         </Row>

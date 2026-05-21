@@ -9,9 +9,9 @@ import RegisterPage from "../pages/auth/RegisterPage.jsx";
 import UserLayout from "../components/layouts/UserLayout.jsx";
 import DashboardPage from "../pages/dashboard/DashboardPage.jsx";
 import AllJobsPage from "../pages/jobs/AllJobsPage.jsx";
-import AddJobPage from  "../pages/jobs/AddJobPage.jsx"
-import ProfilePage from "../pages/users/ProfilePage.jsx"
-
+import AddJobPage from "../pages/jobs/AddJobPage.jsx";
+import ProfilePage from "../pages/users/ProfilePage.jsx";
+import ProtectedRoute from "../pages/auth/ProtectedRoute.jsx";
 
 const AppRoutes = () => {
   return (
@@ -28,13 +28,18 @@ const AppRoutes = () => {
         {/* <Route path="/dashboard" element={<DashboardPage />}></Route> */}
       </Route>
       {/* private route */}
-      <Route path="/user" element={<UserLayout />} >
-      <Route path="dashboard" element={<DashboardPage />}></Route>
-      <Route path="all-jobs" element={<AllJobsPage />}></Route>
-      <Route path="add-job" element={<AddJobPage />}></Route>
-      <Route path="profile" element={<ProfilePage />}></Route>
-
-
+      <Route path="/user" element={<UserLayout />}>
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route path="all-jobs" element={<AllJobsPage />}></Route>
+        <Route path="add-job" element={<AddJobPage />}></Route>
+        <Route path="profile" element={<ProfilePage />}></Route>
       </Route>
     </Routes>
   );
