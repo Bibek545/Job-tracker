@@ -9,7 +9,7 @@ const Footer = () => {
       <Container fluid className="bg-primary text-white py-4">
         <Row className="align-items-start text-start px-4">
           {/* left */}
-          <Col md={4} className="">
+          <Col md={4} xs={4} className="">
             <Stack>
               <Image
                 src={logo}
@@ -25,7 +25,7 @@ const Footer = () => {
             </div>
           </Col>
           {/* middle */}
-          <Col md={4}>
+          <Col md={4} xs={4}>
             <h5 className="mb-3">Useful Links</h5>
             <Nav className="flex-column">
               <Link to="/home" className=" nav-link text-white p-0 mb-2">
@@ -40,7 +40,7 @@ const Footer = () => {
             </Nav>
           </Col>
           {/* Right */}
-          <Col md={4}>
+          <Col md={4} xs={4}>
             <h5 className="mb-3">Contact us!</h5>
             <p className="mb-1">email@jobtracker.com</p>
             <p>0123456789</p>

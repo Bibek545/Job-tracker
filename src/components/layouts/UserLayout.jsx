@@ -9,7 +9,7 @@ const UserLayout = () => {
     <>
       <div className="d-flex flex-column vh-100">
         <Header />
-        <div className="d-flex justify-content-center vh-100" >
+        <div className="d-flex justify-content-center flex-grow-1" >
           <div className="sidebar fw-bold text-white">
             <SideBar />
           </div>

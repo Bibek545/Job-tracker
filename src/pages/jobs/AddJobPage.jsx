@@ -35,10 +35,12 @@ const AddJobPage = () => {
         alert(`${key} is required`);
         return;
       }
-    }
-
+    };
+    console.log(formData);
+    
     const result = await newJobApi(formData, true);
     console.log(result);
+
   };
   return (
     <>

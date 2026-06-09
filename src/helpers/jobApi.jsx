@@ -11,3 +11,11 @@ export const newJobApi = async (payload,isPrivate) => {
     isPrivate,
   });
 };
+
+export const getJobsApi = async (isPrivate) => {
+  return apiProcessor({
+    method: "get",
+    url:jobAPiEP,
+    isPrivate,
+  });
+};

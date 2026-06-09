@@ -1,8 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllJobsAction } from "../../features/job/jobAction";
 
 const AllJobsPage = () => {
   const [showForm, setShowForm] = useState(false);
+  const dispatch = useDispatch();
+
+  const { jobs } = useSelector((state) => state.jobInfo);
+
+  useEffect(()=> {
+    dispatch(fetchAllJobsAction())
+
+  }, [dispatch]);
+      console.log(fetchAllJobsAction);
+
+
+  console.log(jobs);
+  function showAlert() {
+    const result = confirm("Are you sure you want to delete this?");
+
+    if (result) {
+      //call api here
+    }
+  }
   return (
     <>
       <Container className="py-4">
@@ -35,73 +56,92 @@ const AllJobsPage = () => {
                     <th scope="col">Options</th>
                   </tr>
                 </thead>
+                {/* <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Google</td>
+                    <td>Software Engineer</td>
+                    <td>Offer</td>
+                    <td>Apr 18, 2024</td>
+                    <td className="d-flex gap-2">
+                      <Button variant="outline-secondary">Edit </Button>
+                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Google</td>
+                    <td>Software Engineer</td>
+                    <td>Offer</td>
+                    <td>Apr 18, 2024</td>
+                    <td className="d-flex gap-2">
+                      <Button variant="outline-secondary">
+                        Edit
+                      </Button>
+                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Google</td>
+                    <td>Software Engineer</td>
+                    <td>Offer</td>
+                    <td>Apr 18, 2024</td>
+                    <td className="d-flex gap-2">
+                      <Button variant="outline-secondary">Edit </Button>
+                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Google</td>
+                    <td>Software Engineer</td>
+                    <td>Offer</td>
+                    <td>Apr 18, 2024</td>
+                    <td className="d-flex gap-2">
+                      <Button variant="outline-secondary">Edit </Button>
+                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Google</td>
+                    <td>Software Engineer</td>
+                    <td>Offer</td>
+                    <td>Apr 18, 2024</td>
+                    <td className="d-flex gap-2">
+                      <Button variant="outline-secondary">Edit </Button>
+                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Google</td>
+                    <td>Software Engineer</td>
+                    <td>Offer</td>
+                    <td>Apr 18, 2024</td>
+                    <td className="d-flex gap-2">
+                      <Button variant="outline-secondary">Edit </Button>
+                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
+                    </td>
+                  </tr>
+                </tbody> */}
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger">Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger">Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger">Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger">Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger">Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger">Delete </Button>
-                    </td>
-                  </tr>
+                  {jobs?.map((job, index) => (
+                    <tr key={job._id}>
+                      <th scope="row">{index + 1}</th>
+                      <td>{job.companyName}</td>
+                      <td>{job.jobTitle}</td>
+                      <td>{job.status || "Applied"}</td>
+                      <td>{job.appliedDate || "n/a"}</td>
+                      <td className="d-flex gap-2">
+                        <Button variant="outline-secondary">Edit</Button>
+                        <Button variant="outline-danger" onClick={showAlert}>
+                          Delete
+                        </Button>{" "}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

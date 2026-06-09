@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -8,9 +8,62 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
+import { newJobApi } from "../../helpers/jobApi.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllJobsAction } from "../../features/job/jobAction.js";
 
 const DashboardPage = () => {
+  const [formData, setFormData] = useState({
+    jobTitle: "",
+    companyName: "",
+    location: "",
+    jobType: "",
+    status: "",
+    appliedDate: "",
+    notes: "",
+  });
   const [showForm, setShowForm] = useState(false);
+  const dispatch = useDispatch();
+
+  const { jobs } = useSelector((state) => state.jobInfo);
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+
+    for (let key in formData) {
+      const value = formData[key].trim();
+
+      if (!value) {
+        alert(`${key} is required`);
+        return;
+      }
+    }
+    console.log(formData);
+
+    const result = await newJobApi(formData, true);
+    console.log(result);
+  };
+  useEffect(() => {
+    dispatch(fetchAllJobsAction());
+  }, [dispatch]);
+
+  function showAlert() {
+    const result = confirm("Are you sure you want to delete this?");
+
+    if (result) {
+      //calling api here
+    }
+  }
+
   return (
     <>
       <Container>
@@ -19,7 +72,7 @@ const DashboardPage = () => {
             <div className="job-card">
               <p>Img icon</p>
               <div>
-                <h6>32</h6>
+                <h6>{jobs.length}</h6>
                 <p>Applied</p>
               </div>
             </div>
@@ -95,72 +148,22 @@ const DashboardPage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Google</td>
-                  <td>Software Engineer</td>
-                  <td>Offer</td>
-                  <td>Apr 18, 2024</td>
-                  <td className="d-flex gap-2">
-                    <Button variant="outline-secondary">Edit </Button>
-                    <Button variant="outline-danger">Delete </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Google</td>
-                  <td>Software Engineer</td>
-                  <td>Offer</td>
-                  <td>Apr 18, 2024</td>
-                  <td className="d-flex gap-2">
-                    <Button variant="outline-secondary">Edit </Button>
-                    <Button variant="outline-danger">Delete </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Google</td>
-                  <td>Software Engineer</td>
-                  <td>Offer</td>
-                  <td>Apr 18, 2024</td>
-                  <td className="d-flex gap-2">
-                    <Button variant="outline-secondary">Edit </Button>
-                    <Button variant="outline-danger">Delete </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Google</td>
-                  <td>Software Engineer</td>
-                  <td>Offer</td>
-                  <td>Apr 18, 2024</td>
-                  <td className="d-flex gap-2">
-                    <Button variant="outline-secondary">Edit </Button>
-                    <Button variant="outline-danger">Delete </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Google</td>
-                  <td>Software Engineer</td>
-                  <td>Offer</td>
-                  <td>Apr 18, 2024</td>
-                  <td className="d-flex gap-2">
-                    <Button variant="outline-secondary">Edit </Button>
-                    <Button variant="outline-danger">Delete </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Google</td>
-                  <td>Software Engineer</td>
-                  <td>Offer</td>
-                  <td>Apr 18, 2024</td>
-                  <td className="d-flex gap-2">
-                    <Button variant="outline-secondary">Edit </Button>
-                    <Button variant="outline-danger">Delete </Button>
-                  </td>
-                </tr>
+                {jobs?.map((job, index) => (
+                  <tr key={job._id}>
+                    <th scope="row">{index + 1}</th>
+                    <td>{job.companyName}</td>
+                    <td>{job.jobTitle}</td>
+                    <td>{job.status || "Applied"}</td>
+                    <td>{job.appliedDate}</td>
+                    <td className="d-flex gap-2">
+                      <Button variant="outline-secondary">Edit</Button>
+                      <Button variant="outline-danger" onClick={showAlert}>
+                        {" "}
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Col>
@@ -177,14 +180,16 @@ const DashboardPage = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleOnSubmit}>
             <Row>
               <Col xs={12} md={6}>
                 <Form.Group className="mb-3">
                   <Form.Control
                     type="text"
-                    name="JobTitle"
+                    name="jobTitle"
                     placeholder="Job Title"
+                    value={formData.jobTitle}
+                    onChange={handleOnChange}
                   />
                 </Form.Group>
               </Col>
@@ -193,8 +198,10 @@ const DashboardPage = () => {
                 <Form.Group className="mb-3">
                   <Form.Control
                     type="text"
-                    name="Company"
+                    name="companyName"
                     placeholder="Company"
+                    value={formData.companyName}
+                    onChange={handleOnChange}
                   />
                 </Form.Group>
               </Col>
@@ -204,19 +211,25 @@ const DashboardPage = () => {
                   <Form.Control
                     type="text"
                     name="location"
+                    value={formData.location}
                     placeholder="Location"
+                    onChange={handleOnChange}
                   />
                 </Form.Group>
               </Col>
 
               <Col xs={12} md={6}>
                 <Form.Group className="mb-3">
-                  <Form.Select name="jobType">
+                  <Form.Select
+                    name="jobType"
+                    value={formData.jobType}
+                    onChange={handleOnChange}
+                  >
                     <option>Job Type</option>
-                    <option value="full-time">Full Time</option>
-                    <option value="part-time">Part Time</option>
-                    <option value="internship">Internship</option>
-                    <option value="contract">Contract</option>
+                    <option value="Full-time">Full Time</option>
+                    <option value="Part-time">Part Time</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Contract">Contract</option>
                   </Form.Select>
                 </Form.Group>
               </Col>
@@ -225,19 +238,29 @@ const DashboardPage = () => {
             <Row>
               <Col xs={12} md={6}>
                 <Form.Group className="mb-3">
-                  <Form.Select name="status">
+                  <Form.Select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleOnChange}
+                  >
                     <option>Status</option>
-                    <option value="applied">Applied</option>
-                    <option value="interview">Interview</option>
-                    <option value="offered">Offered</option>
-                    <option value="rejected">Rejected</option>
+                    <option value="Applied">Applied</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Offered">Offered</option>
+                    <option value="Rejected">Rejected</option>
                   </Form.Select>
                 </Form.Group>
               </Col>
 
               <Col xs={12} md={6}>
                 <Form.Group className="mb-3">
-                  <Form.Control type="date" name="appliedDate" />
+                  <Form.Control
+                    type="date"
+                    name="appliedDate"
+                    value={formData.appliedDate}
+                    placeholder="Applied Date"
+                    onChange={handleOnChange}
+                  />
                 </Form.Group>
               </Col>
             </Row>
@@ -246,22 +269,40 @@ const DashboardPage = () => {
               <Form.Control
                 as="textarea"
                 rows={4}
+                type="text"
                 name="notes"
+                value={formData.notes}
                 placeholder="Notes"
+                onChange={handleOnChange}
               />
+            </Form.Group>
+
+            <Form.Group>
+              <div className="d-flex justify-content-end gap-3">
+                <Button
+                  variant="outline-secondary"
+                  onClick={() => setShowForm(false)}
+                >
+                  Cancel
+                </Button>
+
+                <Button type="submit" variant="warning">
+                  Add Job
+                </Button>
+              </div>
             </Form.Group>
           </Form>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button
+          {/* <Button
             variant="outline-secondary"
             onClick={() => setShowForm(false)}
           >
             Cancel
           </Button>
 
-          <Button variant="warning">Add Job</Button>
+          <Button  type="submit" variant="warning">Add Job</Button> */}
         </Modal.Footer>
       </Modal>
     </>
