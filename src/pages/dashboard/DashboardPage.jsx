@@ -8,9 +8,12 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
-import { newJobApi } from "../../helpers/jobApi.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllJobsAction } from "../../features/job/jobAction.js";
+import {
+  addJobAction,
+  deletejobAction,
+  fetchAllJobsAction,
+} from "../../features/job/jobAction.js";
 
 const DashboardPage = () => {
   const [formData, setFormData] = useState({
@@ -49,18 +52,38 @@ const DashboardPage = () => {
     }
     console.log(formData);
 
-    const result = await newJobApi(formData, true);
-    console.log(result);
+    // const result = await addJobAction(formData, true);
+
+    const result = await dispatch(addJobAction(formData));
+
+    if (result.status === "success") {
+      setFormData({
+        jobTitle: "",
+        companyName: "",
+        location: "",
+        jobType: "",
+        status: "",
+        appliedDate: "",
+        notes: "",
+      });
+      setShowForm(false);
+    }
+    // console.log(result);
   };
   useEffect(() => {
     dispatch(fetchAllJobsAction());
+    console.log("Job added");
+    console.log("Fetching jobs again");
   }, [dispatch]);
 
-  function showAlert() {
+  function showAlert(_id) {
     const result = confirm("Are you sure you want to delete this?");
 
     if (result) {
       //calling api here
+      dispatch(deletejobAction(_id));
+      console.log("Job deleted");
+      console.log("Fetching jobs again");
     }
   }
 
@@ -156,8 +179,19 @@ const DashboardPage = () => {
                     <td>{job.status || "Applied"}</td>
                     <td>{job.appliedDate}</td>
                     <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit</Button>
-                      <Button variant="outline-danger" onClick={showAlert}>
+                      <Button
+                        variant="outline-secondary"
+                        show={showForm}
+                        onHide={() => setShowForm(false)}
+                        centered
+                        size="lg"
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="outline-danger"
+                        onClick={() => showAlert(job._id)}
+                      >
                         {" "}
                         Delete
                       </Button>

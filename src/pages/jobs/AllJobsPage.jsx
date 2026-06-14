@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllJobsAction } from "../../features/job/jobAction";
+import { deletejobAction, fetchAllJobsAction } from "../../features/job/jobAction";
 
 const AllJobsPage = () => {
   const [showForm, setShowForm] = useState(false);
@@ -13,17 +13,19 @@ const AllJobsPage = () => {
     dispatch(fetchAllJobsAction())
 
   }, [dispatch]);
-      console.log(fetchAllJobsAction);
+      // console.log(fetchAllJobsAction);
 
 
   console.log(jobs);
-  function showAlert() {
+  function showAlert(_id) {
     const result = confirm("Are you sure you want to delete this?");
 
     if (result) {
       //call api here
+      dispatch(deletejobAction(_id));
     }
-  }
+  };
+
   return (
     <>
       <Container className="py-4">
@@ -56,76 +58,6 @@ const AllJobsPage = () => {
                     <th scope="col">Options</th>
                   </tr>
                 </thead>
-                {/* <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">
-                        Edit
-                      </Button>
-                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Google</td>
-                    <td>Software Engineer</td>
-                    <td>Offer</td>
-                    <td>Apr 18, 2024</td>
-                    <td className="d-flex gap-2">
-                      <Button variant="outline-secondary">Edit </Button>
-                      <Button variant="outline-danger"  onClick={showAlert}>Delete </Button>
-                    </td>
-                  </tr>
-                </tbody> */}
                 <tbody>
                   {jobs?.map((job, index) => (
                     <tr key={job._id}>
@@ -136,7 +68,7 @@ const AllJobsPage = () => {
                       <td>{job.appliedDate || "n/a"}</td>
                       <td className="d-flex gap-2">
                         <Button variant="outline-secondary">Edit</Button>
-                        <Button variant="outline-danger" onClick={showAlert}>
+                        <Button variant="outline-danger" onClick={() => showAlert(job._id)}>
                           Delete
                         </Button>{" "}
                       </td>

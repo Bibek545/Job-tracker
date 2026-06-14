@@ -19,3 +19,11 @@ export const getJobsApi = async (isPrivate) => {
     isPrivate,
   });
 };
+
+export const deleteJobApi = async (_id, isPrivate) => {
+  return apiProcessor({
+    method: "delete",
+    url: jobAPiEP + "/" + _id ,
+    isPrivate
+  })
+};

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { newJobApi } from "../../helpers/jobApi.jsx";
+import { addJobAction } from "../../features/job/jobAction.js";
+import { useDispatch } from "react-redux";
 
 const AddJobPage = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     jobTitle: "",
     companyName: "",
@@ -35,12 +37,22 @@ const AddJobPage = () => {
         alert(`${key} is required`);
         return;
       }
-    };
+    }
     console.log(formData);
-    
-    const result = await newJobApi(formData, true);
-    console.log(result);
 
+    const result = await dispatch(addJobAction(formData));
+    console.log(result);
+    if (result.status === "success") {
+      setFormData({
+        jobTitle: "",
+        companyName: "",
+        location: "",
+        jobType: "",
+        status: "",
+        appliedDate: "",
+        notes: "",
+      });
+    }
   };
   return (
     <>
@@ -141,8 +153,12 @@ const AddJobPage = () => {
                   ></Form.Control>
                 </Form.Group>
                 <div className="d-flex justify-content-end gap-3">
-                  <Button type="reset" variant="outline-secondary">Cancel</Button>
-                  <Button type="submit" variant="outline-secondary">Add Job</Button>
+                  <Button type="reset" variant="outline-secondary">
+                    Cancel
+                  </Button>
+                  <Button type="submit" variant="outline-secondary">
+                    Add Job
+                  </Button>
                 </div>
               </Form>
             </div>
