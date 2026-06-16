@@ -27,3 +27,12 @@ export const deleteJobApi = async (_id, isPrivate) => {
     isPrivate
   })
 };
+
+export const updateJobApi = (_id,formData, isPrivate) => {
+  return apiProcessor({
+    method: "patch",
+    url: jobAPiEP + "/" + _id,
+    isPrivate,
+    payload: formData,
+  })
+}

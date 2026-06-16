@@ -1,4 +1,4 @@
-import { deleteJobApi, getJobsApi, newJobApi } from "../../helpers/jobApi"
+import { deleteJobApi, getJobsApi, newJobApi, updateJobApi } from "../../helpers/jobApi"
 import { setJobs } from "./jobSlice.js";
 
 // export const addJobAction = (formData) => async (dispatch) => {
@@ -38,3 +38,12 @@ export const deletejobAction = (_id) => async (dispatch) => {
       dispatch(fetchAllJobsAction());
     }
 };
+
+export const updateJobAction = (_id, formData) => async (dispatch) => {
+   const  result  = await updateJobApi(_id, formData,true);
+   console.log("UPDATE RESULT:", result);
+   if(result.status === "success") {
+    dispatch(fetchAllJobsAction());
+   }
+   return result;
+}

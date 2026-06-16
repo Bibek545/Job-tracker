@@ -13,6 +13,7 @@ import {
   addJobAction,
   deletejobAction,
   fetchAllJobsAction,
+  updateJobAction,
 } from "../../features/job/jobAction.js";
 
 const DashboardPage = () => {
@@ -26,6 +27,8 @@ const DashboardPage = () => {
     notes: "",
   });
   const [showForm, setShowForm] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+
   const dispatch = useDispatch();
 
   const { jobs } = useSelector((state) => state.jobInfo);
@@ -43,18 +46,29 @@ const DashboardPage = () => {
     e.preventDefault();
 
     for (let key in formData) {
-      const value = formData[key].trim();
+      const value = formData[key];
+      // const value = formData[key].trim();
 
-      if (!value) {
+
+      if (typeof value === "string" && !value.trim()) {
         alert(`${key} is required`);
         return;
       }
     }
+    //   if (!value) {
+    //     alert(`${key} is required`);
+    //     return;
+    //   }
+    // }
     console.log(formData);
 
     // const result = await addJobAction(formData, true);
-
-    const result = await dispatch(addJobAction(formData));
+    let result;
+    if (isEditMode) {
+      result = await dispatch(updateJobAction(formData._id, formData));
+    } else {
+      result = await dispatch(addJobAction(formData));
+    }
 
     if (result.status === "success") {
       setFormData({
@@ -86,6 +100,31 @@ const DashboardPage = () => {
       console.log("Fetching jobs again");
     }
   }
+
+  const handleOnEdit = (job) => {
+    setFormData({
+      ...job,
+      appliedDate: job.appliedDate.split("T")[0],
+    });
+
+    setShowForm(true);
+    setIsEditMode(true);
+    // dispatch(updateJobAction(job));
+  };
+
+  const handleAddJob = () => {
+    setFormData({
+      jobTitle: "",
+      companyName: "",
+      location: "",
+      jobType: "",
+      status: "",
+      appliedDate: "",
+      notes: "",
+    });
+    setIsEditMode(false);
+    setShowForm(true);
+  };
 
   return (
     <>
@@ -135,10 +174,7 @@ const DashboardPage = () => {
             <h3>Job Applications</h3>
           </Col>
           <Col className="">
-            <Button
-              onClick={() => setShowForm(true)}
-              variant="outline-secondary"
-            >
+            <Button onClick={handleAddJob} variant="outline-secondary">
               Add Job
             </Button>
           </Col>
@@ -181,10 +217,7 @@ const DashboardPage = () => {
                     <td className="d-flex gap-2">
                       <Button
                         variant="outline-secondary"
-                        show={showForm}
-                        onHide={() => setShowForm(false)}
-                        centered
-                        size="lg"
+                        onClick={() => handleOnEdit(job)}
                       >
                         Edit
                       </Button>
@@ -209,9 +242,15 @@ const DashboardPage = () => {
         centered
         size="lg"
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Job</Modal.Title>
-        </Modal.Header>
+        {isEditMode ? (
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Job</Modal.Title>
+          </Modal.Header>
+        ) : (
+          <Modal.Header closeButton>
+            <Modal.Title> Add New Job</Modal.Title>
+          </Modal.Header>
+        )}
 
         <Modal.Body>
           <Form onSubmit={handleOnSubmit}>
@@ -320,9 +359,15 @@ const DashboardPage = () => {
                   Cancel
                 </Button>
 
-                <Button type="submit" variant="warning">
-                  Add Job
-                </Button>
+                {isEditMode ? (
+                  <Button type="submit" variant="warning">
+                    Update Job
+                  </Button>
+                ) : (
+                  <Button type="submit" variant="warning">
+                    Add Job
+                  </Button>
+                )}
               </div>
             </Form.Group>
           </Form>
