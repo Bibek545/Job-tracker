@@ -12,11 +12,12 @@ export const registerUserApi = async (payload) => {
   });
 };
 
-export const loginUserApi = async (payload) => {
+export const loginUserApi = async (payload, findUser) => {
     return apiProcessor({
         method: "post",
         url: authApiEP + "/login",
         payload,
+        findUser,
     })
 
 }

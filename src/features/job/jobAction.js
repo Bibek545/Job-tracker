@@ -33,10 +33,11 @@ export const fetchAllJobsAction = () => async (dispatch) => {
 
 
 export const deletejobAction = (_id) => async (dispatch) => {
-   const { status } = await deleteJobApi(_id, true);
-    if(status === "success") {
+   const result = await deleteJobApi(_id, true);
+    if(result.status === "success") {
       dispatch(fetchAllJobsAction());
     }
+    return result;
 };
 
 export const updateJobAction = (_id, formData) => async (dispatch) => {

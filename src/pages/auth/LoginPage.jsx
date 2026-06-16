@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUserApi } from "../../helpers/authApi";
+import { toast } from "react-toastify";
+// import { useSelector } from "react-redux";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  // const { user } = useSelector((state) => state.userInfo)
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -32,15 +35,21 @@ const LoginPage = () => {
     }
 
     const result = await loginUserApi(form);
+    const  { status, findUser} = result;
+      console.log("LOGIN RESULT:", result);
     if (result.status === "success") {
       const tokenJWT = result.token;
-      console.log(result);
-      console.log(result.status);
+      // console.log(result.status);
       localStorage.setItem("jwtToken", tokenJWT);
       setTimeout(() => {
         navigate("/user/dashboard");
-      }, 1500);
+      },1500);
+      toast.success(`Welcome back, ${findUser.fName}`,{delay: 1500})
+    } else {
+      toast.error(result.message)
     }
+
+
   };
   return (
     <>

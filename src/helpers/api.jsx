@@ -5,7 +5,7 @@ const getAccessJWT = () => {
   return localStorage.getItem("jwtToken");
 };
 
-export const apiProcessor = async ({ method, url, payload, isPrivate }) => {
+export const apiProcessor = async ({ method, url, payload, isPrivate , user}) => {
   try {
     const headers = {};
     if (isPrivate) {
@@ -23,6 +23,7 @@ export const apiProcessor = async ({ method, url, payload, isPrivate }) => {
       url,
       data: payload,
       headers,
+      user,
     });
 
     const { data } = await responsePending;

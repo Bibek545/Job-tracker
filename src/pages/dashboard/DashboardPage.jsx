@@ -15,6 +15,7 @@ import {
   fetchAllJobsAction,
   updateJobAction,
 } from "../../features/job/jobAction.js";
+import { toast } from "react-toastify";
 
 const DashboardPage = () => {
   const [formData, setFormData] = useState({
@@ -49,7 +50,6 @@ const DashboardPage = () => {
       const value = formData[key];
       // const value = formData[key].trim();
 
-
       if (typeof value === "string" && !value.trim()) {
         alert(`${key} is required`);
         return;
@@ -68,6 +68,12 @@ const DashboardPage = () => {
       result = await dispatch(updateJobAction(formData._id, formData));
     } else {
       result = await dispatch(addJobAction(formData));
+    }
+
+    if (result.status === "success") {
+      toast.success(result.message);
+    } else {
+      toast.error(result.message);
     }
 
     if (result.status === "success") {
@@ -90,15 +96,19 @@ const DashboardPage = () => {
     console.log("Fetching jobs again");
   }, [dispatch]);
 
-  function showAlert(_id) {
-    const result = confirm("Are you sure you want to delete this?");
+  const showAlert = async (_id) => {
+    const response = confirm("Are you sure you want to delete this?");
 
-    if (result) {
+    if (response) {
       //calling api here
-      dispatch(deletejobAction(_id));
-      console.log("Job deleted");
-      console.log("Fetching jobs again");
+      const result= await dispatch(deletejobAction(_id));
+          if (result.status === "success") {
+      toast.success(result.message);
+    } else {
+      toast.error(result.message);
     }
+    }
+
   }
 
   const handleOnEdit = (job) => {
