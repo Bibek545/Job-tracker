@@ -3,10 +3,13 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUserApi } from "../../helpers/authApi";
 import { toast } from "react-toastify";
+import { loginAction } from "../../features/auth/userAction";
+import { useDispatch } from "react-redux";
 // import { useSelector } from "react-redux";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   // const { user } = useSelector((state) => state.userInfo)
   const [form, setForm] = useState({
     email: "",
@@ -34,7 +37,8 @@ const LoginPage = () => {
       }
     }
 
-    const result = await loginUserApi(form);
+    // const result = await loginUserApi(form);
+    const result = await dispatch(loginAction(form));
     const  { status, findUser} = result;
       console.log("LOGIN RESULT:", result);
     if (result.status === "success") {

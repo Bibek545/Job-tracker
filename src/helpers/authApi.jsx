@@ -18,6 +18,32 @@ export const loginUserApi = async (payload, findUser) => {
         url: authApiEP + "/login",
         payload,
         findUser,
-    })
+    });
+};
 
+export const getUserApi = async () => {
+  return apiProcessor({
+    method: "get",
+    url: authApiEP + "/profile",
+    isPrivate: true,
+  });
+};
+
+export const changePasswordApi = async (formData) => {
+  return apiProcessor({
+    method: "patch",
+    url: authApiEP + "/update-password",
+    payload: formData,
+    isPrivate: true,
+  })
+};
+
+export const editProfileApi = (profileForm) => {
+  return apiProcessor({
+    method: "patch",
+    url: authApiEP + "/update-profile",
+    payload: profileForm,
+    isPrivate: true,
+  })
 }
+

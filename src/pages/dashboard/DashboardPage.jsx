@@ -382,17 +382,6 @@ const DashboardPage = () => {
             </Form.Group>
           </Form>
         </Modal.Body>
-
-        <Modal.Footer>
-          {/* <Button
-            variant="outline-secondary"
-            onClick={() => setShowForm(false)}
-          >
-            Cancel
-          </Button>
-
-          <Button  type="submit" variant="warning">Add Job</Button> */}
-        </Modal.Footer>
       </Modal>
     </>
   );
