@@ -12,6 +12,7 @@ import AllJobsPage from "../pages/jobs/AllJobsPage.jsx";
 import AddJobPage from "../pages/jobs/AddJobPage.jsx";
 import ProfilePage from "../pages/users/ProfilePage.jsx";
 import ProtectedRoute from "../pages/auth/ProtectedRoute.jsx";
+import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage.jsx";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const AppRoutes = () => {
         <Route path="/about" element={<AboutPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
+        <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
         {/* <Route path="/dashboard" element={<DashboardPage />}></Route> */}
       </Route>
       {/* private route */}

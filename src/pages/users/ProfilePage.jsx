@@ -45,13 +45,13 @@ const ProfilePage = () => {
     });
   };
 
-    const handleOnEditChange = ( e) => {
-  const { name, value } = e.target;
+  const handleOnEditChange = (e) => {
+    const { name, value } = e.target;
 
-  setProfileForm({
-    ...profileForm,
-    [name]: value,
-  });
+    setProfileForm({
+      ...profileForm,
+      [name]: value,
+    });
   };
 
   const handleOnSubmit = async (e) => {
@@ -89,23 +89,23 @@ const ProfilePage = () => {
   const handleOnEditSubmit = async (e) => {
     e.preventDefault();
 
-    for(let key in profileForm) {
+    for (let key in profileForm) {
       const value = profileForm[key];
 
-      if(!value) {
+      if (!value) {
         alert(`${key} is required`);
         return;
       }
     }
     const result = await editProfileApi(profileForm);
-    if(result.status === "success") {
-      toast.success(result.message)
+    if (result.status === "success") {
+      toast.success(result.message);
     } else {
       toast.error(result.message);
-    };
-    if(result.status === "success") {
+    }
+    if (result.status === "success") {
       setProfileForm({
-             email: user.email || "",
+        email: user.email || "",
         fName: user.fName || "",
         lName: user.lName || "",
         location: user.location || "",
@@ -114,20 +114,20 @@ const ProfilePage = () => {
       dispatch(getUserAction());
       setShowEditForm(false);
     }
-  }
+  };
 
   const handleShowPasswordModal = () => {
     setShowForm(true);
   };
 
   const handleShowEdiProfileModal = () => {
-       setProfileForm({
-        email: user.email || "",
-        fName: user.fName || "",
-        lName: user.lName || "",
-        location: user.location || "",
-        phone: user.phone || "",
-      })
+    setProfileForm({
+      email: user.email || "",
+      fName: user.fName || "",
+      lName: user.lName || "",
+      location: user.location || "",
+      phone: user.phone || "",
+    });
     setShowEditForm(true);
   };
 
@@ -323,7 +323,7 @@ const ProfilePage = () => {
           </Modal.Title>
         </Modal.Header>
 
-       <Modal.Body>
+        <Modal.Body>
           <Form onSubmit={handleOnEditSubmit}>
             <Row>
               <Form.Group className="mb-3">

@@ -83,6 +83,13 @@ const LoginPage = () => {
                     onChange={handleOnChange}
                   ></Form.Control>
                 </Form.Group>
+                <div className="text-end">
+                  <Link to="/forgot-password" className="text-decoration-none">
+                   <p> Forgot Password?</p>
+                  </Link>
+               
+                  
+                </div>
                 <Button className="w-100" variant="primary" type="Submit">
                   Login
                 </Button>
