@@ -47,3 +47,18 @@ export const editProfileApi = (profileForm) => {
   })
 }
 
+export const generateOTPApi = (formData) => {
+  return apiProcessor({
+    method: "post",
+    url: authApiEP + "/forgot-password",
+    payload: formData,
+  })
+};
+
+export const resetPasswordApi = (formData) => {
+  return apiProcessor({
+    method: "post",
+    url: authApiEP + "/reset-password",
+    payload: formData,
+  })
+}

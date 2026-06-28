@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { generateOTPApi } from "../../helpers/authApi";
+import { toast } from "react-toastify";
 
 const ForgotPasswordPage = () => {
   const [form, setForm] = useState({
     email: "",
   });
+
+  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -27,8 +31,20 @@ const ForgotPasswordPage = () => {
       }
        console.log(value)
     }
-   
+
+    const result = await generateOTPApi(form);
+    console.log(result)
+    if(result.status === "success") {
+      toast.success(result.message)
+    navigate("/reset-password", {
+      state: { email: form.email},
+    }); 
+    } else {
+      toast.error(result.message)
+    }; 
   };
+
+ 
   return (
     <>
       <Container className="py-5">
